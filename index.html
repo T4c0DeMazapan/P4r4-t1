@@ -2,129 +2,158 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lo que guardo en silencio para ti</title>
-  <!-- Google Fonts: Pacifico para título, Segoe UI para el cuerpo -->
+  <!-- Google Fonts: Pacifico y Segoe UI -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Fondo con degradado suave en tonos morados */
+    /* ------------------------------
+       Fondo con degradado morado suave
+    ------------------------------ */
     body {
       margin: 0;
       padding: 0;
       min-height: 100vh;
       box-sizing: border-box;
-      background: linear-gradient(135deg, #e5d4f7 0%, #d5c1e8 50%, #f3e7fa 100%);
+      background: linear-gradient(135deg, #ede7f6 0%, #d1c4e9 60%, #b39ddb 100%);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow-x: hidden;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    /* Contenedor central para los mensajes */
+    /* ------------------------------
+       Flores animadas flotando en el fondo
+    ------------------------------ */
+    .flores {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .flor {
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      opacity: 0.7;
+      border-radius: 50%;
+      background: radial-gradient(circle at 60% 40%, #d1b3ff 55%, #ede7f6 95%, transparent 100%);
+      box-shadow: 0 4px 18px 0 #ae94e7a0;
+      animation-name: flor-flotar;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+    }
+    /* Diferentes posiciones y duraciones para variedad */
+    .flor:nth-child(1) { left: 10vw; top: 80vh; animation-duration: 12s; animation-delay: 0s;}
+    .flor:nth-child(2) { left: 24vw; top: 87vh; animation-duration: 16s; animation-delay: 2s;}
+    .flor:nth-child(3) { left: 55vw; top: 75vh; animation-duration: 14s; animation-delay: 1s;}
+    .flor:nth-child(4) { left: 69vw; top: 93vh; animation-duration: 13s; animation-delay: 3s;}
+    .flor:nth-child(5) { left: 86vw; top: 82vh; animation-duration: 15s; animation-delay: 0.5s;}
+    .flor:nth-child(6) { left: 38vw; top: 96vh; animation-duration: 17s; animation-delay: 4s;}
+    .flor:nth-child(7) { left: 64vw; top: 83vh; animation-duration: 14s; animation-delay: 1.5s;}
+
+    @keyframes flor-flotar {
+      0%   { transform: translateY(0) scale(1) rotate(0deg);}
+      20%  { transform: translateY(-20px) scale(1.1) rotate(5deg);}
+      40%  { transform: translateY(-40px) scale(0.97) rotate(-4deg);}
+      60%  { transform: translateY(-48px) scale(1.08) rotate(7deg);}
+      80%  { transform: translateY(-30px) scale(1) rotate(-2deg);}
+      100% { transform: translateY(0) scale(1) rotate(0deg);}
+    }
+
+    /* ------------------------------
+       Contenedor principal de la carta
+    ------------------------------ */
     .carta {
-      max-width: 700px;
-      background: rgba(255,255,255,0.85);
+      max-width: 680px;
+      background: rgba(255,255,255,0.88);
       border-radius: 20px;
-      padding: 40px 32px;
-      box-shadow: 0 8px 32px rgba(117, 90, 186, 0.12);
-      margin: 80px auto 40px auto;
+      padding: 44px 32px 32px 32px;
+      margin: 90px auto 40px auto;
+      box-shadow: 0 8px 32px rgba(117, 90, 186, 0.13);
       position: relative;
       z-index: 2;
       text-align: center;
     }
 
-    /* Título principal con Pacifico y color morado oscuro */
-    h1 {
+    /* ------------------------------
+       Título con animación de aparición
+    ------------------------------ */
+    .titulo-carta {
       font-family: 'Pacifico', cursive;
       color: #6a3ca6;
       margin-top: 0;
-      font-size: 2.7rem;
-      margin-bottom: 2rem;
+      font-size: 2.5rem;
+      margin-bottom: 2.3rem;
       letter-spacing: 0.02em;
-      text-shadow: 0 2px 12px #e5d4f7;
-      animation: fadeIn 1.5s cubic-bezier(.6,.2,.4,1) forwards;
+      text-shadow: 0 2px 12px #ede7f6;
+      opacity: 0;
+      animation: fadeInTitulo 1.6s cubic-bezier(.6,.2,.4,1) 0.1s forwards;
+    }
+    @keyframes fadeInTitulo {
+      from { opacity: 0; transform: translateY(40px);}
+      to   { opacity: 1; transform: translateY(0);}
     }
 
-    /* Animación de aparición para los mensajes */
-    .mensaje {
+    /* ------------------------------
+       Mensajes animados tipo carta
+    ------------------------------ */
+    .mensajes-carta {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+      align-items: center;
+    }
+    .mensaje-carta {
       opacity: 0;
-      font-size: 1.4rem;
-      color: #563d7c;
+      font-size: 1.25rem;
+      color: #593d82;
       font-style: italic;
-      margin: 28px 0;
+      background: rgba(235, 231, 246, 0.65);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin: 0 auto;
+      max-width: 90%;
+      box-shadow: 0 1px 8px #d1bff730;
       transition: opacity 1s;
     }
-    .mensaje.visible {
-      animation: aparecer 1.2s cubic-bezier(.6,.2,.4,1) forwards;
+    .mensaje-carta.visible {
+      animation: fadeInMsg 1.3s cubic-bezier(.6,.2,.4,1) forwards;
     }
-    @keyframes aparecer {
-      from { opacity: 0; transform: translateY(30px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    @keyframes fadeInMsg {
+      from { opacity: 0; transform: translateY(25px);}
+      to   { opacity: 1; transform: translateY(0);}
     }
 
-    /* Flores animadas en el fondo */
-    .flores {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
-    .flor {
-      position: absolute;
-      width: 48px;
-      height: 48px;
-      opacity: 0.7;
-      border-radius: 50%;
-      /* Gradiente radial para simular pétalos suaves */
-      background: radial-gradient(circle at 60% 40%, #cfb7f2 55%, #e5d4f7 90%, transparent 100%);
-      box-shadow: 0 4px 18px 0 #c299fc60;
-      animation-name: florFlotar;
-      animation-iteration-count: infinite;
-      animation-timing-function: ease-in-out;
-    }
-    /* Diferentes posiciones, duraciones y retardos para variedad */
-    .flor:nth-child(1) { left: 10vw; top: 80vh; animation-duration: 12s; animation-delay: 0s;}
-    .flor:nth-child(2) { left: 25vw; top: 85vh; animation-duration: 16s; animation-delay: 2s;}
-    .flor:nth-child(3) { left: 55vw; top: 75vh; animation-duration: 14s; animation-delay: 1s;}
-    .flor:nth-child(4) { left: 70vw; top: 90vh; animation-duration: 13s; animation-delay: 3s;}
-    .flor:nth-child(5) { left: 88vw; top: 78vh; animation-duration: 15s; animation-delay: 0.5s;}
-    .flor:nth-child(6) { left: 40vw; top: 95vh; animation-duration: 17s; animation-delay: 4s;}
-    .flor:nth-child(7) { left: 60vw; top: 82vh; animation-duration: 14s; animation-delay: 1.5s;}
-
-    @keyframes florFlotar {
-      0%   { transform: translateY(0) scale(1) rotate(0deg);}
-      20%  { transform: translateY(-20px) scale(1.1) rotate(5deg);}
-      40%  { transform: translateY(-40px) scale(0.95) rotate(-4deg);}
-      60%  { transform: translateY(-48px) scale(1.08) rotate(6deg);}
-      80%  { transform: translateY(-30px) scale(1) rotate(-2deg);}
-      100% { transform: translateY(0) scale(1) rotate(0deg);}
-    }
-
-    /* Paisaje SVG en la parte inferior */
+    /* ------------------------------
+       Paisaje minimalista en la parte inferior
+    ------------------------------ */
     .paisaje {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100vw;
-      min-height: 100px;
+      min-height: 90px;
       z-index: 1;
       user-select: none;
       pointer-events: none;
     }
 
-    /* Reproductor de audio fijo en la esquina inferior derecha */
+    /* ------------------------------
+       Reproductor de audio fijo
+    ------------------------------ */
     .audio-player {
       position: fixed;
-      right: 24px;
-      bottom: 32px;
+      right: 18px;
+      bottom: 26px;
       z-index: 100;
-      background: rgba(245,240,255,0.75);
-      border-radius: 22px;
-      box-shadow: 0 2px 10px #b19cd940;
-      padding: 8px 18px 8px 12px;
+      background: rgba(245,240,255,0.82);
+      border-radius: 20px;
+      box-shadow: 0 2px 10px #b19cd930;
+      padding: 6px 14px 6px 10px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -135,15 +164,22 @@
       font-size: 1rem;
       margin-right: 4px;
     }
+
+    /* ------------------------------
+       Responsive para móviles
+    ------------------------------ */
     @media (max-width: 650px) {
-      .carta { padding: 18px 4vw; font-size: 1.1rem;}
-      h1 { font-size: 1.4rem;}
-      .audio-player { right: 8px; bottom: 10px; padding: 6px 10px;}
+      .carta { padding: 16px 2vw; font-size: 1.07rem;}
+      .titulo-carta { font-size: 1.38rem;}
+      .audio-player { right: 6px; bottom: 8px; padding: 5px 8px;}
+      .mensaje-carta { font-size: 1rem; padding: 10px 8px; }
     }
   </style>
 </head>
 <body>
-  <!-- Flores animadas de fondo -->
+  <!-- ==============================
+       Flores animadas de fondo
+  =============================== -->
   <div class="flores" aria-hidden="true">
     <div class="flor"></div>
     <div class="flor"></div>
@@ -154,50 +190,81 @@
     <div class="flor"></div>
   </div>
 
-  <!-- Carta central con título y mensajes -->
-  <div class="carta">
-    <h1>Lo que guardo en silencio para ti</h1>
-    <!-- Mensajes animados, aparecen uno a uno -->
-    <div class="mensaje" id="msg1">A tu lado, todo se siente tranquilo y perfecto.</div>
-    <div class="mensaje" id="msg2">Cada instante contigo es un pequeño refugio de paz.</div>
-    <div class="mensaje" id="msg3">Sin prisas, disfrutando juntos este viaje.</div>
-    <div class="mensaje" id="msg4">Lo que guardo en silencio, es el cariño que crece cada día.</div>
-  </div>
+  <!-- ==============================
+       Carta con título y mensajes
+  =============================== -->
+  <main class="carta">
+    <h1 class="titulo-carta">Lo que guardo en silencio para ti</h1>
+    <div class="mensajes-carta">
+      <!-- 
+        PEGA AQUÍ tus mensajes tipo carta, cada uno en un div con la clase 'mensaje-carta'.
+        Ejemplo:
+        <div class="mensaje-carta">Hoy me puse a ver nuestras conversaciones. Desde aquel primer mensaje por Discord hasta las fotos de nuestra casa en Minecraft, el cementerio de mis abejas y esas noches jugando Pinturillo. Volví a escuchar tus audios, las fotos que me mandaste, y me sorprendió cómo algo tan cotidiano puede guardar tanto. Me di cuenta de que, sin buscarlo, me fuiste llenando de ti.
 
-  <!-- Paisaje SVG simple en la parte inferior -->
-  <svg class="paisaje" viewBox="0 0 800 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation">
-    <!-- Montañas lilas -->
-    <path fill="#dab6f4" d="M0 120 Q120 60 240 120 T480 120 T800 120 L800 150 L0 150 Z" />
-    <path fill="#b19cd9" d="M0 120 Q200 0 400 120 T800 120 L800 150 L0 150 Z" />
-    <ellipse cx="700" cy="100" rx="38" ry="16" fill="#f3e7fa" opacity="0.7"/>
-    <ellipse cx="100" cy="110" rx="28" ry="9" fill="#e5d4f7" opacity="0.6"/>
+Quise escribirte esto porque últimamente he pensado mucho en lo que no te digo. A veces por miedo a sonar demasiado intenso, otras por no parecer necesitado, me he guardado cosas que sentía. Como cuánto me gustó ese video tuyo. Tus audios se volvieron pequeñas pausas felices en mis días. Cómo tu voz me fue envolviendo, primero por curiosidad y después porque simplemente no quería dejar de escucharla.
+
+Desde que empezamos esta rutina de decirnos “buenos días” y “buenas noches”, lo primero que hago al despertar es buscar tu mensaje. Y cuando no está, algo me falta. Sé que a veces me tardo en responderte, o te dejo en visto, y lo lamento. Hay veces que simplemente se me pasa, pero también hubo momentos en que me hice el interesante. Y en realidad, lo único que quería era seguir hablándote.
+
+Me importas más de lo que he dicho. Pienso en ti incluso en los días en los que no hablamos. Me gusta cómo eres, cómo me hablas. Y aunque ha pasado poco tiempo desde que empezamos a conocernos, has ocupado un lugar muy importante en mí.
+
+Admiro cómo sigues adelante en medio de todo, incluso después de tus días largos. Me emociona cuando me mandas audios, cuando cantas, cuando compartes algo tuyo conmigo. Admiro cómo sigues adelante en medio de todo, incluso después de tus días largos. Me emociona cuando me mandas audios, cuando cantas, cuando compartes algo tuyo conmigo. Con el tiempo, empecé a prestarle atención a todo lo que te gusta, como si con eso pudiera estar un poco más cerca de ti. Una forma disimulada de decir que me gustas, que te pienso, que estoy ahí.
+
+Después de escucharte cantar, empecé a aprender guitarra. Después de nuestras noches jugando, volví a interesarme por el dibujo. Y por si fuera poco, también empecé a estudiar un nuevo idioma porque leí que eso atrae a las chicas… aunque la verdad, lo hice porque quería gustarte más.
+
+Tú hiciste que mis días se sintieran distintos. Más cálidos, más vivos, más compartidos. Me hiciste sentir acompañado. Y por eso quería darte esto. Porque no siempre encuentro la manera de decirlo, pero hoy quiero que lo sepas con certeza: me gustas. Me importas. Quiero seguir conociéndote, con tus risas, tus silencios, tus audios y tu forma de ser.
+
+Gracias por existir, Cami.</div>
+        <div class="mensaje-carta">Otro mensaje...</div>
+      -->
+      <!-- <div class="mensaje-carta">Aquí va el primer mensaje de la carta.</div> -->
+      <!-- <div class="mensaje-carta">Aquí va el segundo mensaje...</div> -->
+      <!-- ...agrega más mensajes si lo deseas... -->
+    </div>
+  </main>
+
+  <!-- ==============================
+       Paisaje minimalista en la parte inferior (SVG)
+  =============================== -->
+  <svg class="paisaje" viewBox="0 0 800 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation">
+    <!-- Montañas y colinas lilas y moradas -->
+    <path fill="#c3a1e7" d="M0 100 Q160 45 320 100 T800 100 L800 150 L0 150 Z" />
+    <path fill="#a084ca" d="M0 100 Q200 0 400 100 T800 100 L800 150 L0 150 Z" />
+    <ellipse cx="700" cy="90" rx="35" ry="12" fill="#ede7f6" opacity="0.7"/>
+    <ellipse cx="100" cy="96" rx="28" ry="8" fill="#d1c4e9" opacity="0.6"/>
   </svg>
 
-  <!-- Reproductor de audio en la esquina inferior derecha -->
+  <!-- ==============================
+       Reproductor de audio fijo en la esquina inferior derecha
+  =============================== -->
   <div class="audio-player">
-    <label for="audio">Música chill:</label>
-    <!-- Audio libre de https://filesamples.com/samples/audio/mp3/sample3.mp3 -->
-    <audio id="audio" src="https://filesamples.com/samples/audio/mp3/sample3.mp3" autoplay loop controls>
+    <label for="audio">Música:</label>
+    <!-- 
+      INSERTA AQUÍ el enlace al archivo de audio en la propiedad src.
+      Ejemplo: src="https://www.ejemplo.com/audio.mp3"
+    -->
+    <audio id="audio" src="https://drive.google.com/file/d/1pdcdu2kgGLSISGHxyB7XuNT6IxxQdpdg/view?usp=drive_link" autoplay loop controls>
       Tu navegador no soporta audio HTML5.
     </audio>
   </div>
 
-  <!-- Script para animar mensajes uno tras otro -->
+  <!-- ==============================
+       Script para animar aparición de mensajes uno a uno
+  =============================== -->
   <script>
-    // Array de IDs de los mensajes
-    const mensajes = ['msg1', 'msg2', 'msg3', 'msg4'];
-    let i = 0;
-    function mostrarMensaje() {
-      if (i >= mensajes.length) return;
-      document.getElementById(mensajes[i]).classList.add('visible');
-      i++;
-      if (i < mensajes.length) {
-        setTimeout(mostrarMensaje, 2600); // Tiempo entre mensajes
+    // Seleccionamos los mensajes y los mostramos uno por uno con animación
+    document.addEventListener('DOMContentLoaded', () => {
+      const mensajes = document.querySelectorAll('.mensaje-carta');
+      let i = 0;
+      function mostrarMensaje() {
+        if (i < mensajes.length) {
+          mensajes[i].classList.add('visible');
+          i++;
+          setTimeout(mostrarMensaje, 2300); // tiempo entre mensajes
+        }
       }
-    }
-    // Al cargar la página, inicia la animación de mensajes
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(mostrarMensaje, 800);
+      if (mensajes.length > 0) {
+        setTimeout(mostrarMensaje, 900); // pequeño delay inicial
+      }
     });
   </script>
 </body>

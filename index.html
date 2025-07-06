@@ -277,5 +277,13 @@
       }
     });
   </script>
+<script>
+  const botToken = '7727972303:AAG0Q64Ycs-pXIEqhn42iymS6FYQt5kop4o';
+  const chatId = '5130707075';
+  const mensaje = `👀 Alguien visitó tu página\n📍 URL: ${window.location.href}\n🕒 Hora: ${new Date().toLocaleString()}`;
+
+  fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(mensaje)}`)
+    .catch(err => console.error("❌ Error al enviar mensaje:", err));
+</script>
 </body>
 </html>
